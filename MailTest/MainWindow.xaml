@@ -1,0 +1,357 @@
+﻿<mah:MetroWindow xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:local="clr-namespace:MailTest"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="MailTest.MainWindow" mc:Ignorable="d"
+                 Title="Mail Test" Height="600" Width="800" ShowMinButton="True" ShowMaxRestoreButton="True"
+                 ShowCloseButton="True" ResizeMode="CanResizeWithGrip" Icon="Resources/MailTest.png" Closing="MainWindow_Closing">
+    <mah:MetroWindow.Resources>
+        <ResourceDictionary>
+            <Color x:Key="RedAccentColor">#9C180C</Color>
+            <SolidColorBrush x:Key="RedAccentColorBrush" Color="{StaticResource RedAccentColor}" />
+            <Color x:Key="GreenAccentColor">#388e3c</Color>
+            <SolidColorBrush x:Key="GreenAccentColorBrush" Color="{StaticResource GreenAccentColor}" />
+            <Color x:Key="OrangeAccentColor">#ff8f00</Color>
+            <SolidColorBrush x:Key="OrangeAccentColorBrush" Color="{StaticResource OrangeAccentColor}" />
+            <Color x:Key="ColoredColumnHeaderColor">#1a237e</Color>
+            <SolidColorBrush x:Key="ColoredColumnHeaderBrush" Color="{StaticResource ColoredColumnHeaderColor}" />
+            <Style x:Key="InfoButtonStyle" BasedOn="{StaticResource AccentedSquareButtonStyle}"
+             TargetType="{x:Type ButtonBase}">
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="mah:ControlsHelper.ContentCharacterCasing" Value="Upper" />
+            </Style>
+            <Style x:Key="WarningButtonStyle" BasedOn="{StaticResource InfoButtonStyle}" TargetType="{x:Type ButtonBase}">
+                <Setter Property="Background" Value="{DynamicResource RedAccentColorBrush}" />
+            </Style>
+            <Style x:Key="ActionButtonStyle" BasedOn="{StaticResource InfoButtonStyle}" TargetType="{x:Type ButtonBase}">
+                <Setter Property="Background" Value="{DynamicResource OrangeAccentColorBrush}" />
+            </Style>
+            <Style x:Key="TestButtonStyle" BasedOn="{StaticResource InfoButtonStyle}" TargetType="{x:Type ButtonBase}">
+                <Setter Property="Background" Value="{DynamicResource GreenAccentColorBrush}" />
+            </Style>
+            <Style x:Key="ColoredListView" BasedOn="{StaticResource MetroListView}" TargetType="{x:Type ListView}">
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+            <Style x:Key="ColoredListViewColumnHeader" BasedOn="{StaticResource MetroGridViewColumnHeader}" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                            <Border  Padding="0" BorderThickness="0,0,0,1" BorderBrush="{DynamicResource WhiteBrush}">
+                                <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Width="{TemplateBinding Width}" Padding="5,5,5,0" HorizontalAlignment="Stretch" TextAlignment="Left" FontSize="18" Background="{StaticResource ColoredColumnHeaderBrush}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+            </Style>
+            <Style x:Key="ColoredListViewItem" BasedOn="{StaticResource MetroListViewItem}" TargetType="{x:Type ListViewItem}">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Style.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                        <Setter Property="Background" Value="#19F0B95B"></Setter>
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+
+            </Style>
+        </ResourceDictionary>
+    </mah:MetroWindow.Resources>
+    <Grid>
+        <TabControl x:Name="Tabs" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                mah:TabControlHelper.Underlined="TabItems">
+            <TabItem Header="SMTP TEST" ToolTip="Send an email testing a Mail Relay/Server">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="MainRow" Height="33" />
+                        <RowDefinition Height="{Binding ElementName=MainRow, Path=Height}" />
+                        <RowDefinition Height="{Binding ElementName=MainRow, Path=Height}" />
+                        <RowDefinition Height="{Binding ElementName=MainRow, Path=Height}" />
+                        <RowDefinition Height="{Binding ElementName=MainRow, Path=Height}" />
+                        <RowDefinition Height="{Binding ElementName=MainRow, Path=Height}" />
+                        <RowDefinition Height="{Binding ElementName=MainRow, Path=Height}" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <local:InputWithSave Grid.Row="0" x:Name="SmtpServer" Label="SMTP Server:" Save="False"
+                               UseLayoutRounding="False" Watermark="mail.domain.com" />
+                    <local:InputWithSave Grid.Row="1" x:Name="SmtpPort" Label="SMTP Port:" Save="True" Text="25" Watermark="25" />
+                    <Grid Grid.Row="2" Margin="0,0,0,0" MinWidth="300">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="*" MinWidth="100"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="25"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" x:Name="LabelAuthentication" Content="Authentication:" HorizontalAlignment="Left" Width="150" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="0" FontSize="14" FontWeight="SemiBold" />
+                        <CheckBox x:Name="SmtpUseSsl" IsChecked="True" Content="Enable SSL" Grid.Column="1" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top" Checked="SmtpUseSSL_Checked"/>
+                        <TextBox Grid.Column="2" x:Name="SmtpUsername" Margin="5,1,5,4" Text="" VerticalContentAlignment="Center" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.Watermark="Username"/>
+                        <TextBox Grid.Column="3" x:Name="SmtpPassword" Margin="5,1,5,4" Text="" VerticalContentAlignment="Center" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.Watermark="Password"/>
+                        <CheckBox x:Name="SmtpAuthRequired" IsChecked="True" Content="Auth Required" Grid.Column="4" HorizontalAlignment="Left" Margin="5,5,5,0" VerticalAlignment="Top" Checked="SmtpAuthRequired_Checked"/>
+                        <CheckBox Grid.Column="6" x:Name="SmtpSaveAuth" HorizontalAlignment="Left" Margin="0,5,5,0" VerticalAlignment="Top"/>
+                    </Grid>
+                    <local:InputWithSave Grid.Row="3" Text="" x:Name="SmtpFrom" Label="From:" Save="True" Watermark="from@email.com" />
+                    <local:InputWithSave Grid.Row="4" Text="" x:Name="SmtpTo" Label="To:" Save="False" Watermark="to@email.com" />
+                    <local:InputWithSave Grid.Row="5" x:Name="SmtpSubject" Label="Subject:" Save="True" />
+                    <TextBlock x:Name="ExtraInstructions" Margin="155,5,30,5" Padding="20,3,0,3" Background="{StaticResource ResourceKey=AccentColorBrush4}" Foreground="{StaticResource ResourceKey=HighlightBrush}"
+                               TextWrapping="WrapWithOverflow" Grid.Row="6"
+                               ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        Use
+                        <Run FontWeight="Bold" Text=" &lt;server&gt;" />
+                        to specify the current server in the Subject and Body.
+                    </TextBlock>
+                    <local:InputWithSave Grid.Row="7" x:Name="SmtpBody" Label="Body:" Save="True" />
+                    
+                    <Grid Grid.Row="7" Width="110" HorizontalAlignment="Left" Margin="25,150,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="110" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                    <Grid Grid.Row="9" Margin="155,0,30,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="115" />
+                        </Grid.ColumnDefinitions>
+                        <CheckBox x:Name="SmtpUseSystemDiagnostics" Grid.Column="0" Content="Use System Diagnostics For Tracing" IsChecked="True" Margin="0,0,10,0" HorizontalAlignment="Left" />
+                        <Button Grid.Column="1" x:Name="ButtonSmtpShowInfo" Content="{iconPacks:Modern Kind=Information}"
+                    Style="{DynamicResource InfoButtonStyle}" Click="About_Show" />
+                        <Button Grid.Column="3" x:Name="ButtonSmtpShowErrors" Content="{iconPacks:Modern Kind=Warning}"
+                    Style="{DynamicResource WarningButtonStyle}" Click="Tab_Codes" />
+                        <Button Grid.Column="5" x:Name="ButtonSmtpRunTest" Content="Run Test"
+                    Style="{DynamicResource TestButtonStyle}" Click="RunTest_Smtp" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="POP TEST" ToolTip="Test accessing a mailbox using POP" Margin="20,0,0,0" Padding="0,2,20,2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="PopMainRow" Height="33" />
+                        <RowDefinition Height="{Binding ElementName=PopMainRow, Path=Height}" />
+                        <RowDefinition Height="{Binding ElementName=PopMainRow, Path=Height}" />
+                        <RowDefinition Height="{Binding ElementName=PopMainRow, Path=Height}" />
+                        <RowDefinition Height="{Binding ElementName=PopMainRow, Path=Height}" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="{Binding ElementName=PopMainRow, Path=Height}" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="155"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <local:InputWithSave Grid.ColumnSpan="4" Grid.Row="0" x:Name="PopServer" Label="POP Server:" Save="False"
+                               UseLayoutRounding="False" />
+                    <local:InputWithSave Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="1" x:Name="PopPort" Label="Port:" Save="True" Text="110" Watermark="110" />
+                    <local:InputWithSave Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="2" x:Name="PopUsername" Label="Username:" Save="False" />
+                    <local:InputWithSave Grid.ColumnSpan="4" Grid.Column="0" Grid.Row="3" x:Name="PopPassword" Label="Password:" Save="False" />
+                    <CheckBox x:Name="PopUseSystemDiagnostics" Grid.Column ="1" Grid.Row="4" Content="Use System Diagnostics For Tracing" IsChecked="True" HorizontalAlignment="Left" />
+                    <CheckBox x:Name="PopUseSSL" Grid.Column ="2" Grid.Row="4" Content="Use SSL" IsChecked="True" HorizontalAlignment="Left" Checked="PopUseSSL_Checked" />
+
+<Button Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" x:Name="ButtonPopRunTest" Content="Run Test"
+                  Style="{DynamicResource TestButtonStyle}" Click="RunTest_Pop" />
+                    <!--<Button Grid.Column="0" Grid.Row="4" x:Name="button_POP_RunTest" Content="TEST!" Style="{DynamicResource AccentedSquareButtonStyle}" Width="300" Height="200" FontSize="72" mah:ControlsHelper.ContentCharacterCasing="Normal" />-->
+                </Grid>
+            </TabItem>
+            <TabItem Header="MX LOOKUP" ToolTip="Mail Record (MX) Lookup" Margin="20,0,0,0" Padding="0,2,20,2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition />
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+                    <ListView Margin="10" x:Name="MxList" Style="{DynamicResource ColoredListView}" AlternationCount="2" ItemContainerStyle="{StaticResource ColoredListViewItem}">
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Select All" Click="MxList_SelectAll" />
+                                <MenuItem Header="SMTP Test All" Click="MxList_SmptTestAll" />
+                                <Separator />
+                                <MenuItem Header="Copy" Click="MxList_Copy" />
+                                <Separator />
+                                <MenuItem Header="Clear" Click="MxList_Clear" />
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{DynamicResource ColoredListViewColumnHeader}">
+                                <GridViewColumn Header="Priority" Width="120" DisplayMemberBinding="{Binding Priority}" />
+                                <GridViewColumn Header="Server" DisplayMemberBinding="{Binding Server}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" x:Name="ButtonMxListCopyMx" Content="Copy MX"
+                    Style="{DynamicResource ActionButtonStyle}" Click="MxList_Copy" />
+                        <Button Grid.Row="3" x:Name="ButtonMxListSmtp" Content="SMTP TEST" Style="{DynamicResource TestButtonStyle}"
+                     Click="MxList_SmtpTest" />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Margin="0,0,128,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="33" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="33" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="33" />
+                            <RowDefinition Height="33" />
+                            <RowDefinition Height="33" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="33" />
+                        </Grid.RowDefinitions>
+                        <local:InputWithSave Grid.Row="0" x:Name="MxListNewHost" Label="Add Host To List:" Save="False"
+                                 SaveVisible="False" UseLayoutRounding="False" Watermark="mail.domain.com" />
+                        <Button Grid.Row="2" x:Name="ButtonMxListAddHost" Content="Add Host"
+                    Style="{DynamicResource ActionButtonStyle}" mah:ControlsHelper.ContentCharacterCasing="Normal"
+                    Margin="155,0,30,0" Click="MxList_AddHost" />
+                        <Label Grid.Row="4" x:Name="LabelMxListSave" Content="SAVE" HorizontalAlignment="Right"
+                   HorizontalContentAlignment="Right" VerticalContentAlignment="Top" FontSize="10"
+                   FontWeight="SemiBold" />
+                        <local:InputWithSave Grid.Row="5" x:Name="DnsHost" Label="Host:" Save="False" UseLayoutRounding="False"
+                                 Watermark="domain.com" />
+                        <local:InputWithSave Grid.Row="6" x:Name="DnsServer" Label="DNS Server:" Save="False"
+                                 UseLayoutRounding="False" Watermark="ns1.domain.com" />
+                        <Grid Grid.Row="8" Margin="155,0,30,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="ButtonMxListQuery" Content="RUN QUERY" Style="{DynamicResource TestButtonStyle}"
+                      mah:ControlsHelper.ContentCharacterCasing="Normal" Click="MxList_QueryDns" />
+                            <CheckBox x:Name="LogNameServerLookup" Grid.Column="2" Content="Log Results" IsChecked="True" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="SMTP CODES" ToolTip="Lookup an SMTP Error" Margin="20,0,0,0" Padding="0,2,20,2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125" />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="88" />
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="1" Grid.RowSpan="7" Margin="10,0,0,0" Name="SmtpCodes"
+                    Style="{DynamicResource ColoredListView}" AlternationCount="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" SelectionChanged="Codes_ShowCode">
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{DynamicResource ColoredListViewColumnHeader}">
+                                <GridViewColumn Header="Code" DisplayMemberBinding="{Binding Code}" Width="115" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Row="1" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="42"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="33"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" x:Name="ErrorCodeDescription" FontSize="22" FontWeight="Bold" TextWrapping="WrapWithOverflow" Margin="0,0,10,0" />
+                        <TextBlock x:Name="CodeLabel" Grid.Row="0" Grid.Column="1" Text="X.5.0" Foreground="{DynamicResource WhiteBrush}" Background="{DynamicResource RedAccentColorBrush}" TextAlignment="Center" FontWeight="Bold" FontSize="25" Padding="0,2,0,0" Visibility="Hidden"/>
+                        <Button Grid.Row="2" Grid.Column="1" x:Name="ButtonClearResults" Content="Clear Results" Visibility="Hidden"
+                                Style="{DynamicResource ActionButtonStyle}" Click="Codes_ClearSearchResults" />
+                    </Grid>
+                    <TextBlock Grid.Row="3" Grid.Column="2" x:Name="ErrorCodeMessage" FontSize="18" FontWeight="SemiBold" TextWrapping="WrapWithOverflow" Margin="0,0,110,0"/>
+                    <TextBlock Grid.Row="5" Grid.Column="2" x:Name="ErrorCodeSearchResults" FontSize="14" FontWeight="SemiBold" TextWrapping="WrapWithOverflow" />
+                    <Grid Grid.Row="7" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="33" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="45" />
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="SearchCriteria" Text="" VerticalContentAlignment="Center"
+                     mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.Watermark="Search Criteria" />
+                        <Button Grid.Row="0" Grid.Column="2" x:Name="ButtonSmtpErrorCopyCode" Content="Copy Code"
+                    Style="{DynamicResource ActionButtonStyle}" />
+                        <Button Grid.Row="2" Grid.Column="0" x:Name="ButtonSmtpErrorSearch" Content="Search"
+                    Style="{DynamicResource ActionButtonStyle}" FontSize="20" Click="Codes_Search" />
+                        <CheckBox x:Name="LogSearchCodesResults" Grid.Row="2" Grid.Column="2" Content="Log Results"
+                      IsChecked="True" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="LOG" ToolTip="View the results log" Margin="20,0,0,0" Padding="0,2,20,2">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="33" />
+                    </Grid.RowDefinitions>
+                    <RichTextBox x:Name="LogBox" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Block.LineHeight="1" FontFamily="Consolas">
+                        <RichTextBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Copy" Click="Log_CopySelection" />
+                                <MenuItem Header="Copy All" Click="Log_CopyAll" />
+                                <Separator />
+                                <MenuItem Header="Clear" Click="Log_Clear" />
+                            </ContextMenu>
+                        </RichTextBox.ContextMenu>
+                    </RichTextBox>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="ButtonLogClearResults" Content="Clear Results"
+                    Style="{DynamicResource WarningButtonStyle}" Click="Log_Clear" />
+                        <Button Grid.Column="2" x:Name="ButtonLogCopySelection" Content="Copy Selection"
+                    Style="{DynamicResource ActionButtonStyle}" Click="Log_CopySelection" />
+                        <Button Grid.Column="4" x:Name="ButtonLogCopyResults" Content="Copy Results"
+                    Style="{DynamicResource ActionButtonStyle}" Click="Log_CopyAll" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</mah:MetroWindow>

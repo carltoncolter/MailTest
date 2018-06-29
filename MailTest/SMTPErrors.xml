@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" ?>
+<errors>
+	<error code="X.1.0">
+		<desc>Other address status</desc>
+		<message>Something about the address specified in the message caused this DSN.</message>
+	</error>
+	<error code="X.1.1">
+		<desc>Bad destination mailbox address</desc>
+		<message>The mailbox specified in the address does not exist.  For Internet mail names, this means the address portion to the left of the "@" sign is invalid.  This code is only useful for permanent failures.</message>
+	</error>
+	<error code="X.1.2">
+		<desc>Bad destination system address</desc>
+		<message>The destination system specified in the address does not exist or is incapable of accepting mail.  For Internet mail names, this means the address portion to the right of the "@" is invalid for mail.  This codes is only useful for permanent failures.</message>
+	</error>
+	<error code="X.1.3">
+		<desc>Bad destination mailbox address syntax</desc>
+		<message>The destination address was syntactically invalid.  This can apply to any field in the address.  This code is only useful for permanent failures.</message>
+	</error>
+	<error code="X.1.4">
+		<desc>Destination mailbox address ambiguous</desc>
+		<message>The mailbox address as specified matches one or more recipients on the destination system.  This may result if a heuristic address mapping algorithm is used to map the specified address to a local mailbox name.</message>
+	</error>
+	<error code="X.1.5">
+		<desc>Destination address valid</desc>
+		<message>This mailbox address as specified was valid.  This status code should be used for positive delivery reports.</message>
+	</error>
+	<error code="X.1.6">
+		<desc>Destination mailbox has moved, No forwarding address</desc>
+		<message>The mailbox address provided was at one time valid, but mail is no longer being accepted for that address.  This code is only useful for permanent failures.</message>
+	</error>
+	<error code="X.1.7">
+		<desc>Bad sender's mailbox address syntax</desc>
+		<message>The sender's address was syntactically invalid.  This can apply to any field in the address.</message>
+	</error>
+	<error code="X.1.8">
+		<desc>Bad sender's system address</desc>
+		<message>The sender's system specified in the address does not exist or is incapable of accepting return mail.  For domain names, this means the address portion to the right of the "@" is invalid for mail.</message>
+	</error>
+	<error code="X.2.0">
+		<desc>Other or undefined mailbox status</desc>
+		<message>The mailbox exists, but something about the destination mailbox has caused the sending of this DSN.</message>
+	</error>
+	<error code="X.2.1">
+		<desc>Mailbox disabled, not accepting messages</desc>
+		<message>The mailbox exists, but is not accepting messages.  This may be a permanent error if the mailbox will never be re-enabled or a transient error if the mailbox is only temporarily disabled.</message>
+	</error>
+	<error code="X.2.2">
+		<desc>Mailbox full</desc>
+		<message>The mailbox is full because the user has exceeded a per-mailbox administrative quota or physical capacity.  The general semantics implies that the recipient can delete messages to make more space available.  This code should be used as a persistent transient failure.</message>
+	</error>
+	<error code="X.2.3">
+		<desc>Message length exceeds administrative limit</desc>
+		<message>A per-mailbox administrative message length limit has been exceeded.  This status code should be used when the per-mailbox message length limit is less than the general system limit.  This code should be used as a permanent failure.</message>
+	</error>
+	<error code="X.2.4">
+		<desc>Mailing list expansion problem</desc>
+		<message>The mailbox is a mailing list address and the mailing list was unable to be expanded.  This code may represent a permanent failure or a persistent transient failure.</message>
+	</error>
+	<error code="X.3.0">
+		<desc>Other or undefined mail system status</desc>
+		<message>The destination system exists and normally accepts mail, but something about the system has caused the generation of this DSN.</message>
+	</error>
+	<error code="X.3.1">
+		<desc>Mail system full</desc>
+		<message>Mail system storage has been exceeded.  The general semantics imply that the individual recipient may not be able to delete material to make room for additional messages.  This is useful only as a persistent transient error.</message>
+	</error>
+	<error code="X.3.2">
+		<desc>System not accepting network messages</desc>
+		<message>The host on which the mailbox is resident is not accepting messages.  Examples of such conditions include an immanent shutdown, excessive load, or system maintenance.  This is useful for both permanent and permanent transient errors.</message>
+	</error>
+	<error code="X.3.3">
+		<desc>System not capable of selected features</desc>
+		<message>Selected features specified for the message are not supported by the destination system.  This can occur in gateways when features from one domain cannot be mapped onto the supported feature in another.</message>
+	</error>
+	<error code="X.3.4">
+		<desc>Message too big for system</desc>
+		<message>The message is larger than per-message size limit.  This limit may either be for physical or administrative reasons. This is useful only as a permanent error.</message>
+	</error>
+	<error code="X.3.5">
+		<desc>System incorrectly configured</desc>
+		<message>The system is not configured in a manner which will permit it to accept this message.</message>
+	</error>
+	<error code="X.4.0">
+		<desc>Other or undefined network or routing status</desc>
+		<message>Something went wrong with the networking, but it is not clear what the problem is, or the problem cannot be well expressed with any of the other provided detail codes.</message>
+	</error>
+	<error code="X.4.1">
+		<desc>No answer from host</desc>
+		<message>The outbound connection attempt was not answered, either because the remote system was busy, or otherwise unable to take a call.  This is useful only as a persistent transient error.</message>
+	</error>
+	<error code="X.4.2">
+		<desc>Bad connection</desc>
+		<message>The outbound connection was established, but was otherwise unable to complete the message transaction, either because of time-out, or inadequate connection quality. This is useful only as a persistent transient error.</message>
+	</error>
+	<error code="X.4.3">
+		<desc>Directory server failure</desc>
+		<message>The network system was unable to forward the message, because a directory server was unavailable.  This is useful only as a persistent transient error.
+
+The inability to connect to an Internet DNS server is one example of the directory server failure error.</message>
+	</error>
+	<error code="X.4.4">
+		<desc>Unable to route</desc>
+		<message>The mail system was unable to determine the next hop for the message because the necessary routing information was unavailable from the directory server. This is useful for both permanent and persistent transient errors.
+
+A DNS lookup returning only an SOA (Start of Administration) record for a domain name is one example of the unable to route error.</message>
+	</error>
+	<error code="X.4.5">
+		<desc>Mail system congestion</desc>
+		<message>The mail system was unable to deliver the message because the mail system was congested. This is useful only as a persistent transient error.</message>
+	</error>
+	<error code="X.4.6">
+		<desc>Routing loop detected</desc>
+		<message>A routing loop caused the message to be forwarded too many times, either because of incorrect routing tables or a user forwarding loop. This is useful only as a persistent transient error.</message>
+	</error>
+	<error code="X.4.7">
+		<desc>Delivery time expired</desc>
+		<message>The message was considered too old by the rejecting system, either because it remained on that host too long or because the time-to-live value specified by the sender of the message was exceeded. If possible, the code for the actual problem found when delivery was attempted should be returned rather than this code.  This is useful only as a persistent transient error.</message>
+	</error>
+	<error code="X.5.0">
+		<desc>Other or undefined protocol status</desc>
+		<message>Something was wrong with the protocol necessary to deliver the message to the next hop and the problem cannot be well expressed with any of the other provided detail codes.</message>
+	</error>
+	<error code="X.5.1">
+		<desc>Invalid command</desc>
+		<message>A mail transaction protocol command was issued which was either out of sequence or unsupported.  This is useful only as a permanent error.</message>
+	</error>
+	<error code="X.5.2">
+		<desc>Syntax error</desc>
+		<message>A mail transaction protocol command was issued which could not be interpreted, either because the syntax was wrong or the command is unrecognized. This is useful only as a permanent error.</message>
+	</error>
+	<error code="X.5.3">
+		<desc>Too many recipients</desc>
+		<message>More recipients were specified for the message than could have been delivered by the protocol.  This error should normally result in the segmentation of the message into two, the remainder of the recipients to be delivered on a subsequent delivery attempt.  It is included in this list in the event that such segmentation is not possible.</message>
+	</error>
+	<error code="X.5.4">
+		<desc>Invalid command arguments</desc>
+		<message>A valid mail transaction protocol command was issued with invalid arguments, either because the arguments were out of range or represented unrecognized features. This is useful only as a permanent error.</message>
+	</error>
+	<error code="X.5.5">
+		<desc>Wrong protocol version</desc>
+		<message>A protocol version mis-match existed which could not be automatically resolved by the communicating parties.</message>
+	</error>
+	<error code="X.6.0">
+		<desc>Other or undefined media error</desc>
+		<message>Something about the content of a message caused it to be considered undeliverable and the problem cannot be well expressed with any of the other provided detail codes.</message>
+	</error>
+	<error code="X.6.1">
+		<desc>Media not supported</desc>
+		<message>The media of the message is not supported by either the delivery protocol or the next system in the forwarding path. This is useful only as a permanent error.</message>
+	</error>
+	<error code="X.6.2">
+		<desc>Conversion required and prohibited</desc>
+		<message>The content of the message must be converted before it can be delivered and such conversion is not permitted.  Such prohibitions may be the expression of the sender in the message itself or the policy of the sending host.</message>
+	</error>
+	<error code="X.6.3">
+		<desc>Conversion required but not supported</desc>
+		<message>The message content must be converted to be forwarded but such conversion is not possible or is not practical by a host in the forwarding path.  This condition may result when an ESMTP gateway supports 8bit transport but is not able to downgrade the message to 7 bit as required for the next hop.</message>
+	</error>
+	<error code="X.6.4">
+		<desc>Conversion with loss performed
+</desc>
+		<message>This is a warning sent to the sender when message delivery was successfully but when the delivery required a conversion in which some data was lost.  This may also be a permanant error if the sender has indicated that conversion with loss is prohibited for the message.</message>
+	</error>
+	<error code="X.6.5">
+		<desc>Conversion Failed</desc>
+		<message>A conversion was required but was unsuccessful.  This may be useful as a permanent or persistent temporary notification.</message>
+	</error>
+	<error code="X.7.0">
+		<desc>Other or undefined security status</desc>
+		<message>Something related to security caused the message to be returned, and the problem cannot be well expressed with any of the other provided detail codes.  This status code may also be used when the condition cannot be further described because of security policies in force.</message>
+	</error>
+	<error code="X.7.1">
+		<desc>Delivery not authorized, message refused</desc>
+		<message>The sender is not authorized to send to the destination. This can be the result of per-host or per-recipient filtering.  This memo does not discuss the merits of any such filtering, but provides a mechanism to report such. This is useful only as a permanent error.
+
+Example: Relaying Denied 5.7.1</message>
+	</error>
+	<error code="X.7.2">
+		<desc>Mailing list expansion prohibited</desc>
+		<message>The sender is not authorized to send a message to the intended mailing list.  This is useful only as a permanent error.</message>
+	</error>
+	<error code="X.7.3">
+		<desc>Security conversion required but not possible</desc>
+		<message>A conversion from one secure messaging protocol to another was required for delivery and such conversion was not possible. This is useful only as a permanent error.</message>
+	</error>
+	<error code="X.7.4">
+		<desc>Security features not supported</desc>
+		<message>A message contained security features such as secure authentication which could not be supported on the delivery protocol. This is useful only as a permanent error.</message>
+	</error>
+	<error code="X.7.5">
+		<desc>Cryptographic failure</desc>
+		<message>A transport system otherwise authorized to validate or decrypt a message in transport was unable to do so because necessary information such as key was not available or such information was invalid.</message>
+	</error>
+	<error code="X.7.6">
+		<desc>Cryptographic algorithm not supported</desc>
+		<message>A transport system otherwise authorized to validate or decrypt a message was unable to do so because the necessary algorithm was not supported.</message>
+	</error>
+	<error code="X.7.7">
+		<desc>Message integrity failure</desc>
+		<message>A transport system otherwise authorized to validate a message was unable to do so because the message was corrupted or altered.  This may be useful as a permanent, transient persistent or successful delivery code.</message>
+	</error>
+	<error code="2.X.X">
+		<desc>Success</desc>
+		<message>Success specifies that the DSN is reporting a positive delivery action.  Detail sub-codes may provide notification of transformations required for delivery.</message>
+	</error>
+	<error code="4.X.X">
+		<desc>Persistent Transient Failure</desc>
+		<message>A persistent transient failure is one in which the message as sent is valid, but some temporary event prevents the successful sending of the message.  Sending in the future may be successful.</message>
+	</error>
+	<error code="5.X.X">
+		<desc>Permanent Failure</desc>
+		<message>A permanent failure is one which is not likely to be resolved by resending the message in the current form.  Some change to the message or the destination must be made for successful delivery.</message>
+	</error>
+	<error code="X.0.X">
+		<desc>Other or Undefined Status</desc>
+		<message>There is no additional subject information available.</message>
+	</error>
+	<error code="X.1.X">
+		<desc>Addressing Status</desc>
+		<message>The address status reports on the originator or destination address.  It may include address syntax or validity.  These errors can generally be corrected by the sender and retried.</message>
+	</error>
+	<error code="X.2.X">
+		<desc>Mailbox Status</desc>
+		<message>Mailbox status indicates that something having to do with the mailbox has caused this DSN.  Mailbox issues are assumed to be under the general control of the recipient.</message>
+	</error>
+	<error code="X.3.X">
+		<desc>Mail System Status</desc>
+		<message>Mail system status indicates that something having to do with the destination system has caused this DSN.  System issues are assumed to be under the general control of the destination system administrator.</message>
+	</error>
+	<error code="X.4.X">
+		<desc>Network and Routing Status</desc>
+		<message>The networking or routing codes report status about the delivery system itself.  These system components include any necessary infrastructure such as directory and routing services.  Network issues are assumed to be under the control of the destination or intermediate system administrator.</message>
+	</error>
+	<error code="X.5.X">
+		<desc>Mail Delivery Protocol Status</desc>
+		<message>The mail delivery protocol status codes report failures involving the message delivery protocol.  These failures include the full range of problems resulting from implementation errors or an unreliable connection.  Mail delivery protocol issues may be controlled by many parties including the originating system, destination system, or intermediate system administrators.</message>
+	</error>
+	<error code="X.6.X">
+		<desc>Message Content or Media Status</desc>
+		<message>The message content or media status codes report failures involving the content of the message.  These codes report failures due to translation, transcoding, or otherwise unsupported message media.  Message content or media issues are under the control of both the sender and the receiver, both of whom must support a common set of supported content-types.</message>
+	</error>
+	<error code="X.7.X">
+		<desc>Security or Policy Status</desc>
+		<message>The security or policy status codes report failures involving policies such as per-recipient or per-host filtering and cryptographic operations.  Security and policy status issues are assumed to be under the control of either or both the sender and recipient.  Both the sender and recipient must permit the exchange of messages and arrange the exchange of necessary keys and certificates for cryptographic operations.</message>
+	</error>
+</errors>
